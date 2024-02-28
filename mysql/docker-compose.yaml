@@ -1,0 +1,26 @@
+
+version: '3'
+
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    container_name: mysql
+    ports:
+      - target: 3306
+        published: 3306
+        mode: host
+    environment:
+      MYSQL_ROOT_PASSWORD: piriquitin
+    volumes:
+      - mysql:/var/lib/mysql
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+volumes:
+  mysql:

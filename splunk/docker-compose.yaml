@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  splunk:
+    image: splunk/splunk:latest
+    ports:
+      - target: 65088   ## TCP input logs
+        published: 65088
+        mode: host
+      - target: 8088
+        published: 8088
+        mode: host
+      - target: 8000
+        published: 8000
+        mode: host
+    environment:
+      SPLUNK_START_ARGS: --accept-license
+      SPLUNK_PASSWORD: piriquitin

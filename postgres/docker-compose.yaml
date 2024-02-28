@@ -1,0 +1,17 @@
+version: '3'
+services:
+  postgres16:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: piriquitin
+      POSTGRES_DB: postgres
+    ports:
+      - target: 5432
+        published: 5432
+        mode: host
+    volumes:
+      - postgres16:/var/lib/postgresql/data
+volumes:
+  postgres16:
