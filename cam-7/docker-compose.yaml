@@ -21,7 +21,7 @@ services:
     depends_on:
       - postgres16
     command:
-      - camunda-run.sh
+      - ./camunda.sh
       - --webapps
       - --rest
       - --production
