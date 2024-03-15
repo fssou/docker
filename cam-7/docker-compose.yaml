@@ -1,0 +1,40 @@
+
+version: '3'
+
+services:
+  postgres16:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: piriquitin
+      POSTGRES_DB: cam
+    ports:
+      - target: 5432
+        published: 55432
+        mode: host
+    volumes:
+      - postgres16:/var/lib/postgresql/data
+  camunda:
+    image: camunda/camunda-bpm-platform:run-7.18.0
+    restart: always
+    depends_on:
+      - postgres16
+    command:
+      - camunda-run.sh
+      - --webapps
+      - --rest
+      - --production
+    ports:
+      - target: 8080
+        published: 58080
+        mode: host
+    environment:
+      - WAIT_FOR=postgres16:5432
+      - DB_DRIVER=org.postgresql.Driver
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres16:5432/cam
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=piriquitin
+
+volumes:
+  postgres16:
